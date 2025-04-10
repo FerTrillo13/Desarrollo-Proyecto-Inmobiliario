@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coldwell Banker Commercial</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+    header { background: url('https://raw.githubusercontent.com/tu_usuario/tu_repo/main/skyline.jpg') no-repeat center center; background-size: cover; height: 300px; color: white; display: flex; align-items: center; justify-content: center; text-shadow: 2px 2px 4px #000; }
+    header h1 { font-size: 3rem; }
+    section { padding: 2rem; }
+    h2 { color: #003B71; }
+    .valores { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .valor { flex: 1 1 200px; background: #f0f0f0; padding: 1rem; border-radius: 8px; }
+    form input, form select, form textarea { display: block; width: 100%; padding: 0.5rem; margin-bottom: 1rem; }
+    form button { background: #003B71; color: white; border: none; padding: 0.75rem 1.5rem; cursor: pointer; border-radius: 5px; }
+    .catalogo, .buscador, .mapa { margin-top: 2rem; }
+    .propiedad { border: 1px solid #ccc; padding: 1rem; margin-bottom: 1rem; border-radius: 6px; }
+    iframe { width: 100%; height: 400px; border: none; }
+    @media (max-width: 768px) {
+      header h1 { font-size: 2rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Coldwell Banker Commercial</h1>
+  </header>
+
+  <section>
+    <h2>Quiénes somos</h2>
+    <p>Somos una inmobiliaria comercial moderna especializada en conectar propietarios de oficinas y naves industriales con empresarios, franquicias y emprendedores. Nuestra misión es facilitar el acceso a espacios ideales para el éxito de los negocios.</p>
+
+    <h3>Misión</h3>
+    <p>Ser el puente inteligente entre propietarios y empresarios, brindando herramientas tecnológicas que faciliten decisiones informadas.</p>
+
+    <h3>Visión</h3>
+    <p>Transformar el sector inmobiliario comercial con una plataforma moderna, analítica y centrada en el cliente.</p>
+
+    <h3>Valores</h3>
+    <div class="valores">
+      <div class="valor">Transparencia</div>
+      <div class="valor">Innovación</div>
+      <div class="valor">Servicio al cliente</div>
+      <div class="valor">Compromiso</div>
+    </div>
+  </section>
+
+  <section class="catalogo">
+    <h2>Catálogo de propiedades</h2>
+    <label>Zona: <input type="text" placeholder="Ej. Polanco, Centro..."></label>
+    <label>Tipo: 
+      <select>
+        <option>Oficina</option>
+        <option>Nave industrial</option>
+        <option>Local comercial</option>
+      </select>
+    </label>
+    <label>Superficie mínima (m²): <input type="number"></label>
+    <label>Precio máximo ($): <input type="number"></label>
+
+    <div class="propiedad">
+      <h4>Oficina en Reforma</h4>
+      <p>250 m² - $50,000/mes - Zona Centro</p>
+      <p>Espacio moderno con recepción, salas de juntas y estacionamiento.</p>
+    </div>
+
+    <div class="propiedad">
+      <h4>Nave en Tlalnepantla</h4>
+      <p>800 m² - $70,000/mes - Zona Industrial</p>
+      <p>Altura libre 9m, patio de maniobras, cerca de vías principales.</p>
+    </div>
+  </section>
+
+  <section class="buscador">
+    <h2>Busca por tipo de negocio</h2>
+    <input type="text" id="busqueda" placeholder="Ej. Cafetería, Estética, Oficinas corporativas...">
+    <button onclick="recomendarZona()">Buscar recomendación</button>
+    <p id="recomendacion"></p>
+  </section>
+
+  <section>
+    <h2>Formulario de registro de interesados</h2>
+    <form id="formulario">
+      <input type="text" name="nombre" placeholder="Nombre" required>
+      <input type="text" name="apellido" placeholder="Apellido" required>
+      <input type="tel" name="telefono" placeholder="Teléfono">
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="text" name="compania" placeholder="Compañía">
+      <input type="text" name="giro" placeholder="Giro del negocio">
+      <input type="text" name="zonas" placeholder="Zonas de interés">
+      <input type="text" name="superficie" placeholder="Superficie requerida (m²)">
+      <input type="text" name="ciudad" placeholder="Ciudad de interés">
+      <button type="submit">Enviar</button>
+    </form>
+    <p id="respuesta"></p>
+  </section>
+
+  <section class="mapa">
+    <h2>Ubicación de propiedades</h2>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.4437066819496!2d-99.1676651846987!3d19.43260738688648!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1ff3d6e0e2537%3A0x3eb9d9e75899d6d5!2sReforma!5e0!3m2!1ses!2smx!4v1600000000000!5m2!1ses!2smx" allowfullscreen></iframe>
+  </section>
+
+  <script>
+    document.getElementById('formulario').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const form = e.target;
+      const data = new FormData(form);
+      const url = "https://script.google.com/macros/s/AKfycbxiW8NLns-uE__CTS9E9O_lagyZEr5UCfrtJg-dVVcBiyeey3tksbeYeK3FofYWQQbU/exec";
+
+      try {
+        const res = await fetch(url, {
+          method: 'POST',
+          body: data
+        });
+        document.getElementById('respuesta').textContent = 'Formulario enviado correctamente';
+        form.reset();
+      } catch (err) {
+        document.getElementById('respuesta').textContent = 'Hubo un error al enviar el formulario';
+      }
+    });
+
+    function recomendarZona() {
+      const input = document.getElementById('busqueda').value.toLowerCase();
+      let respuesta = "Revisa nuestras opciones disponibles.";
+      if (input.includes('cafetería')) {
+        respuesta = "Te recomendamos zonas con alto flujo peatonal como Roma, Condesa o Polanco.";
+      } else if (input.includes('estética')) {
+        respuesta = "Busca lugares con alta densidad residencial como Del Valle, Coyoacán o Satélite.";
+      } else if (input.includes('oficinas')) {
+        respuesta = "Zonas corporativas ideales: Santa Fe, Reforma y Polanco.";
+      } else if (input.includes('nave')) {
+        respuesta = "Consulta nuestras opciones en zonas industriales como Tlalnepantla o Naucalpan.";
+      }
+      document.getElementById('recomendacion').textContent = respuesta;
+    }
+  </script>
+
+</body>
+</html>
